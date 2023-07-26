@@ -3,14 +3,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AnimalShelter.Data.Migrations
+namespace AnimalShelter.Migrations
 {
-    public partial class Applications : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Person",
+                name: "Persons",
                 columns: table => new
                 {
                     PersonId = table.Column<int>(type: "int", nullable: false)
@@ -23,11 +23,11 @@ namespace AnimalShelter.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Person", x => x.PersonId);
+                    table.PrimaryKey("PK_Persons", x => x.PersonId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Application",
+                name: "Applications",
                 columns: table => new
                 {
                     ApplicationId = table.Column<int>(type: "int", nullable: false)
@@ -38,17 +38,17 @@ namespace AnimalShelter.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Application", x => x.ApplicationId);
+                    table.PrimaryKey("PK_Applications", x => x.ApplicationId);
                     table.ForeignKey(
-                        name: "FK_Application_Person_PersonId",
+                        name: "FK_Applications_Persons_PersonId",
                         column: x => x.PersonId,
-                        principalTable: "Person",
+                        principalTable: "Persons",
                         principalColumn: "PersonId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Animal",
+                name: "Animals",
                 columns: table => new
                 {
                     AnimalId = table.Column<int>(type: "int", nullable: false)
@@ -60,48 +60,48 @@ namespace AnimalShelter.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Animal", x => x.AnimalId);
+                    table.PrimaryKey("PK_Animals", x => x.AnimalId);
                     table.ForeignKey(
-                        name: "FK_Animal_Application_ApplicationId",
+                        name: "FK_Animals_Applications_ApplicationId",
                         column: x => x.ApplicationId,
-                        principalTable: "Application",
+                        principalTable: "Applications",
                         principalColumn: "ApplicationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Animal_Person_PersonId",
+                        name: "FK_Animals_Persons_PersonId",
                         column: x => x.PersonId,
-                        principalTable: "Person",
+                        principalTable: "Persons",
                         principalColumn: "PersonId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Animal_ApplicationId",
-                table: "Animal",
+                name: "IX_Animals_ApplicationId",
+                table: "Animals",
                 column: "ApplicationId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Animal_PersonId",
-                table: "Animal",
+                name: "IX_Animals_PersonId",
+                table: "Animals",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Application_PersonId",
-                table: "Application",
+                name: "IX_Applications_PersonId",
+                table: "Applications",
                 column: "PersonId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Animal");
+                name: "Animals");
 
             migrationBuilder.DropTable(
-                name: "Application");
+                name: "Applications");
 
             migrationBuilder.DropTable(
-                name: "Person");
+                name: "Persons");
         }
     }
 }

@@ -22,5 +22,7 @@ namespace AnimalShelter.Models
         public Application Application { get; set; }
         public Person Person { get; set; }
 
+        //what is cascadeing here?
+
     }
 }
